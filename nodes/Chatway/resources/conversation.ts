@@ -14,7 +14,7 @@ export const conversationDescription: INodeProperties[] = [
 			{
 				name: 'Get Many',
 				value: 'getAll',
-				action: 'Get many conversations',
+				action: 'List conversations',
 				description: 'List conversations, open conversations first',
 				routing: {
 					request: { method: 'GET', url: '/conversations/all' },

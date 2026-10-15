@@ -31,9 +31,9 @@ export const contactDescription: INodeProperties[] = [
 				},
 			},
 			{
-				name: 'Get',
+				name: 'Get Single',
 				value: 'get',
-				action: 'Get a contact',
+				action: 'Get single contact',
 				description: 'Get a single contact',
 				routing: {
 					request: { method: 'GET', url: '=/contacts/{{$parameter.contactId}}' },
@@ -43,7 +43,7 @@ export const contactDescription: INodeProperties[] = [
 			{
 				name: 'Get Many',
 				value: 'getAll',
-				action: 'Get many contacts',
+				action: 'List contacts',
 				description: 'List or search contacts',
 				routing: {
 					request: { method: 'GET', url: '/contacts' },

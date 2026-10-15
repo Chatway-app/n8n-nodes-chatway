@@ -12,9 +12,9 @@ export const agentDescription: INodeProperties[] = [
 		displayOptions: { show: showForAgent },
 		options: [
 			{
-				name: 'Get',
+				name: 'Get Single',
 				value: 'get',
-				action: 'Get an agent',
+				action: 'Get single agent',
 				description: 'Get a single teammate',
 				routing: {
 					request: { method: 'GET', url: '=/agents/{{$parameter.agentId}}' },
@@ -24,7 +24,7 @@ export const agentDescription: INodeProperties[] = [
 			{
 				name: 'Get Many',
 				value: 'getAll',
-				action: 'Get many agents',
+				action: 'List agents',
 				description: 'List the teammates in your Chatway workspace',
 				routing: {
 					request: { method: 'GET', url: '/agents' },

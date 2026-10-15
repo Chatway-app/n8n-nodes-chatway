@@ -14,7 +14,7 @@ export const messageDescription: INodeProperties[] = [
 			{
 				name: 'Get Many',
 				value: 'getAll',
-				action: 'Get many messages',
+				action: 'List messages',
 				description: 'List the messages in a conversation, newest first',
 				routing: {
 					request: {

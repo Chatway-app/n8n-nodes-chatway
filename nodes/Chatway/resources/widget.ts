@@ -14,7 +14,7 @@ export const widgetDescription: INodeProperties[] = [
 			{
 				name: 'Get Many',
 				value: 'getAll',
-				action: 'Get many widgets',
+				action: 'List widgets',
 				description: 'List the chat widgets in your Chatway workspace',
 				routing: {
 					request: { method: 'GET', url: '/widgets' },
