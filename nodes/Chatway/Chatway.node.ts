@@ -1,25 +1,29 @@
 import { NodeConnectionTypes, type INodeType, type INodeTypeDescription } from 'n8n-workflow';
-import { userDescription } from './resources/user';
-import { companyDescription } from './resources/company';
+import { agentDescription } from './resources/agent';
+import { contactDescription } from './resources/contact';
+import { conversationDescription } from './resources/conversation';
+import { messageDescription } from './resources/message';
+import { widgetDescription } from './resources/widget';
+import { BASE_URL, getAgents, getWidgets } from './shared/utils';
 
 export class Chatway implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Chatway',
+		displayName: 'Chatway Live Chat',
 		name: 'chatway',
-		icon: { light: 'file:chatway.svg', dark: 'file:chatway.dark.svg' },
-		group: ['transform'],
+		icon: { light: 'file:../../icons/chatway.svg', dark: 'file:../../icons/chatway.dark.svg' },
+		group: ['output'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with the Chatway API',
+		description: 'Manage Chatway live chat conversations, messages, and contacts',
 		defaults: {
-			name: 'Chatway',
+			name: 'Chatway Live Chat',
 		},
 		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		credentials: [{ name: 'chatwayApi', required: true }],
 		requestDefaults: {
-			baseURL: 'https://developers.chatway.app/api/v1',
+			baseURL: BASE_URL,
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
@@ -32,19 +36,26 @@ export class Chatway implements INodeType {
 				type: 'options',
 				noDataExpression: true,
 				options: [
-					{
-						name: 'User',
-						value: 'user',
-					},
-					{
-						name: 'Company',
-						value: 'company',
-					},
+					{ name: 'Agent', value: 'agent' },
+					{ name: 'Contact', value: 'contact' },
+					{ name: 'Conversation', value: 'conversation' },
+					{ name: 'Message', value: 'message' },
+					{ name: 'Widget', value: 'widget' },
 				],
-				default: 'user',
+				default: 'message',
 			},
-			...userDescription,
-			...companyDescription,
+			...agentDescription,
+			...contactDescription,
+			...conversationDescription,
+			...messageDescription,
+			...widgetDescription,
 		],
+	};
+
+	methods = {
+		loadOptions: {
+			getAgents,
+			getWidgets,
+		},
 	};
 }

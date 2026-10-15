@@ -1,5 +1,6 @@
 import type {
 	IAuthenticateGeneric,
+	Icon,
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
@@ -10,8 +11,9 @@ export class ChatwayApi implements ICredentialType {
 
 	displayName = 'Chatway API';
 
-	// Link to your community node's README
-	documentationUrl = 'https://github.com/org/-chatway?tab=readme-ov-file#credentials';
+	icon: Icon = { light: 'file:../icons/chatway.svg', dark: 'file:../icons/chatway.dark.svg' };
+
+	documentationUrl = 'https://github.com/Chatway-app/n8n-nodes-chatway?tab=readme-ov-file#credentials';
 
 	properties: INodeProperties[] = [
 		{
@@ -21,6 +23,7 @@ export class ChatwayApi implements ICredentialType {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
+			description: 'Create an API key in Chatway under Settings → Developer Tools → API Keys',
 		},
 	];
 
@@ -28,7 +31,7 @@ export class ChatwayApi implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				'x-api-key': '={{$credentials.apiKey}}',
+				'X-API-KEY': '={{$credentials.apiKey}}',
 			},
 		},
 	};
@@ -36,7 +39,8 @@ export class ChatwayApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: 'https://developers.chatway.app/api/v1',
-			url: '/v1/user',
+			url: '/widgets',
+			qs: { limit: 1 },
 		},
 	};
 }

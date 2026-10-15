@@ -1,14 +1,23 @@
 {
   "name": "n8n-nodes-chatway",
   "version": "0.1.0",
-  "description": "",
+  "description": "n8n node for Chatway Live Chat: manage customer support conversations, messages, and contacts",
   "license": "MIT",
-  "homepage": "",
-  "keywords": ["n8n-community-node-package"],
-  "author": { "name": "Nibir Ahmed", "email": "nibirahmed9611@gmail.com" },
+  "homepage": "https://github.com/Chatway-app/n8n-nodes-chatway",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "chatway",
+    "live-chat",
+    "customer-support"
+  ],
+  "author": {
+    "name": "Nibir Ahmed",
+    "email": "nibirahmed9611@gmail.com"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+    "url": "https://github.com/Chatway-app/n8n-nodes-chatway.git"
   },
   "scripts": {
     "build": "n8n-node build",
@@ -19,12 +28,18 @@
     "release": "n8n-node release",
     "prepublishOnly": "n8n-node prerelease"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "n8n": {
     "n8nNodesApiVersion": 1,
     "strict": true,
-    "credentials": ["dist/credentials/ChatwayApi.credentials.js"],
-    "nodes": ["dist/nodes/Chatway/Chatway.node.js"]
+    "credentials": [
+      "dist/credentials/ChatwayApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Chatway/Chatway.node.js"
+    ]
   },
   "devDependencies": {
     "@n8n/node-cli": "*",
@@ -33,5 +48,7 @@
     "release-it": "^21.1.0",
     "typescript": "5.9.2"
   },
-  "peerDependencies": { "n8n-workflow": "*" }
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
 }
