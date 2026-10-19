@@ -38,7 +38,8 @@
       "dist/credentials/ChatwayApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Chatway/Chatway.node.js"
+      "dist/nodes/Chatway/Chatway.node.js",
+      "dist/nodes/ChatwayTrigger/ChatwayTrigger.node.js"
     ]
   },
   "devDependencies": {

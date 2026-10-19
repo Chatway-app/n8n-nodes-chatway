@@ -91,24 +91,18 @@ export const messageDescription: INodeProperties[] = [
 		routing: { send: { type: 'body', property: 'content' } },
 	},
 	{
-		displayName: 'Additional Fields',
-		name: 'additionalFields',
-		type: 'collection',
-		placeholder: 'Add Field',
-		default: {},
+		// Required: without agent_id, Chatway stores the message as sent by the visitor
+		// (which would also re-fire the "message received" trigger).
+		displayName: 'Send As Agent Name or ID',
+		name: 'agentId',
+		type: 'options',
+		typeOptions: { loadOptionsMethod: 'getAgents' },
+		required: true,
+		default: '',
 		displayOptions: { show: { ...showForMessage, operation: ['send'] } },
-		options: [
-			{
-				displayName: 'Send As Agent Name or ID',
-				name: 'agentId',
-				type: 'options',
-				typeOptions: { loadOptionsMethod: 'getAgents' },
-				default: '',
-				description:
-					'The agent the message is sent as. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
-				routing: { send: { type: 'body', property: 'agent_id' } },
-			},
-		],
+		description:
+			'The agent the message is sent as. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		routing: { send: { type: 'body', property: 'agent_id' } },
 	},
 
 	// Get Many (the API returns at most 20 messages per page)

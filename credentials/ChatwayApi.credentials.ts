@@ -38,7 +38,7 @@ export class ChatwayApi implements ICredentialType {
 
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: 'https://developers.chatway.app/api/v1',
+			baseURL: 'http://api-docs.chatway.test/api/v1', // TEMP local test — revert
 			url: '/widgets',
 			qs: { limit: 1 },
 		},

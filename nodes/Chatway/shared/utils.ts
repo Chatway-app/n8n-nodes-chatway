@@ -8,7 +8,7 @@ import type {
 	INodePropertyOptions,
 } from 'n8n-workflow';
 
-export const BASE_URL = 'https://developers.chatway.app/api/v1';
+export const BASE_URL = 'http://api-docs.chatway.test/api/v1'; // TEMP local test — revert to https://developers.chatway.app/api/v1
 
 type ApiResource = { id?: string; type?: string; attributes?: IDataObject };
 
