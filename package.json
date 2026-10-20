@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-chatway",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "n8n node for Chatway Live Chat: manage customer support conversations, messages, and contacts",
   "license": "MIT",
   "homepage": "https://github.com/Chatway-app/n8n-nodes-chatway",
