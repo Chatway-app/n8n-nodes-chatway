@@ -1,16 +1,9 @@
 {
   "name": "n8n-nodes-chatway",
   "version": "1.0.3",
-  "description": "n8n node for Chatway Live Chat: manage customer support conversations, messages, and contacts",
+  "description": "Automate Chatway Live Chat with n8n. Trigger workflows from customer events, manage conversations, send replies, and sync contacts.",
   "license": "MIT",
   "homepage": "https://github.com/Chatway-app/n8n-nodes-chatway",
-  "keywords": [
-    "n8n-community-node-package",
-    "n8n",
-    "chatway",
-    "live-chat",
-    "customer-support"
-  ],
   "author": {
     "name": "Chatway",
     "email": "contact@chatway.app"
@@ -55,5 +48,23 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "chatway",
+    "chatway-live-chat",
+    "live-chat",
+    "customer-support",
+    "customer-service",
+    "helpdesk",
+    "shared-inbox",
+    "workflow-automation",
+    "customer-support-automation",
+    "chat-automation",
+    "webhooks",
+    "ai-agent",
+    "customer-messaging",
+    "contacts"
+  ]
 }
