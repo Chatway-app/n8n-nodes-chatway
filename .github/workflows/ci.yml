@@ -6,7 +6,6 @@ on:
     branches:
       - main
 
-# Cancel in-progress runs for the same branch/PR to avoid wasting CI minutes.
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true

@@ -91,8 +91,7 @@ export const messageDescription: INodeProperties[] = [
 		routing: { send: { type: 'body', property: 'content' } },
 	},
 	{
-		// Required: without agent_id, Chatway stores the message as sent by the visitor
-		// (which would also re-fire the "message received" trigger).
+		// Without agent_id the message is saved as sent by the visitor.
 		displayName: 'Send As Agent Name or ID',
 		name: 'agentId',
 		type: 'options',

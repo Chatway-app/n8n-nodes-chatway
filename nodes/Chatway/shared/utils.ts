@@ -78,7 +78,6 @@ export function paginationProperties(
 			default: 50,
 			description: 'Max number of results to return',
 			routing: {
-				// Pages are capped at the endpoint's maximum; fetch more pages when the limit is larger.
 				send: {
 					type: 'query',
 					property: 'limit',

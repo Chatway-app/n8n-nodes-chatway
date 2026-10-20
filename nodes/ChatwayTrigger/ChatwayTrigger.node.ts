@@ -14,11 +14,8 @@ import {
 } from 'n8n-workflow';
 import { BASE_URL } from '../Chatway/shared/utils';
 
-// Chatway signs deliveries as "sha256=" + HMAC-SHA256(secret, "<timestamp>.<raw body>").
 const SIGNATURE_TOLERANCE_SECONDS = 300;
-// Duplicate protection: Chatway retries a delivery with the same event ID (evt_…) when the
-// endpoint doesn't answer in time. Recent IDs are kept in memory, because n8n does not reliably
-// persist static data written during a webhook call.
+// Retries reuse the event id. Kept in memory since static data isn't saved from webhook calls.
 const RECENT_EVENT_TTL_MS = 24 * 60 * 60 * 1000;
 const RECENT_EVENT_IDS_LIMIT = 1000;
 const recentEventIds = new Map<string, number>();
@@ -173,7 +170,7 @@ export class ChatwayTrigger implements INodeType {
 					return true;
 				}
 
-				// URL or events changed: remove the old webhook so create() registers a fresh one.
+				// URL or events changed, recreate it.
 				await chatwayRequest.call(this, 'DELETE', `/webhooks/${staticData.webhookId}`);
 				delete staticData.webhookId;
 				delete staticData.webhookSecret;
@@ -186,7 +183,7 @@ export class ChatwayTrigger implements INodeType {
 				const workflowName = this.getWorkflow().name ?? 'workflow';
 
 				const { statusCode, body } = await chatwayRequest.call(this, 'POST', '/webhooks', {
-					// Names must be unique per Chatway workspace.
+					// Names are unique per workspace.
 					name: `n8n: ${workflowName} (${randomBytes(3).toString('hex')})`.slice(0, 255),
 					endpoint_url: this.getNodeWebhookUrl('default'),
 					events: this.getNodeParameter('events') as string[],
@@ -257,7 +254,7 @@ export class ChatwayTrigger implements INodeType {
 		const events = this.getNodeParameter('events') as string[];
 		const eventId = String(body.id ?? '');
 
-		// Acknowledge, but don't run the workflow, for unselected events and redelivered duplicates.
+		// Ack unselected events and retries without running.
 		if (
 			!events.includes(String(body.event)) ||
 			(eventId && isDuplicateEvent(String(staticData.webhookId), eventId))
