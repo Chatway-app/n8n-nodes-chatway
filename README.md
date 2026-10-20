@@ -1,5 +1,8 @@
 # Chatway Live Chat for n8n
 
+[![npm version](https://img.shields.io/npm/v/n8n-nodes-chatway.svg)](https://www.npmjs.com/package/n8n-nodes-chatway)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+
 Automate customer support conversations, messages and contacts with [Chatway](https://chatway.app) and [n8n](https://n8n.io).
 
 Chatway is a live chat and customer support platform that brings website chat, WhatsApp, Instagram, Facebook Messenger and email into one shared inbox. This package adds two nodes to n8n:
@@ -28,6 +31,8 @@ n8n-nodes-chatway
 ```
 
 ## Credentials
+
+API access and webhooks are included on every Chatway plan, including the [free plan](https://chatway.app/pricing). Only workspace owners and admins can create API keys.
 
 1. In Chatway, go to **Settings → Developer Tools → API Keys** and create a key.
 2. In n8n, create a new **Chatway API** credential and paste the key.
