@@ -3,82 +3,130 @@
 [![npm version](https://img.shields.io/npm/v/n8n-nodes-chatway.svg)](https://www.npmjs.com/package/n8n-nodes-chatway)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
-Automate customer support conversations, messages and contacts with [Chatway](https://chatway.app) and [n8n](https://n8n.io).
+Connect **[Chatway Live Chat](https://chatway.app)** with n8n to automate customer support, manage conversations, sync contacts, and build AI-powered customer service workflows.
 
-Chatway is a live chat and customer support platform that brings website chat, WhatsApp, Instagram, Facebook Messenger and email into one shared inbox. This package adds two nodes to n8n:
+Chatway is a customer support platform that brings **website live chat, WhatsApp, Instagram, Facebook Messenger, and email** into one shared inbox.
 
-- **Chatway Live Chat**: work with conversations, messages, contacts, agents and widgets.
-- **Chatway Trigger**: start a workflow the moment something happens in Chatway, such as a new conversation or an incoming message.
+This community node lets you connect Chatway with n8n AI Agents, CRMs, Slack, Google Sheets, and many other apps.
 
-[Installation](#installation) · [Credentials](#credentials) · [Operations](#operations) · [Trigger](#trigger) · [Examples](#examples) · [Compatibility](#compatibility) · [Resources](#resources)
+**Get started for free.** Chatway API access and webhooks are available on every plan, including the Free plan.
+
+This package includes two nodes:
+
+* **Chatway Live Chat:** Manage conversations, messages, contacts, agents, and widgets.
+* **Chatway Trigger:** Start workflows automatically when events happen in Chatway, such as new conversations, incoming messages, or contact updates.
+
+The Chatway Live Chat node can also be used as a tool by **n8n AI Agents**.
+
+[Chatway Website](https://chatway.app) | [API Documentation](https://developers.chatway.app) | [GitHub Repository](https://github.com/Chatway-app/n8n-nodes-chatway)
 
 ## What you can automate
 
-- Draft or send replies with an n8n AI Agent when a visitor writes in
-- Add new contacts to a CRM or Google Sheets
-- Alert your team in Slack when a conversation starts or is resolved
-- Leave private notes on conversations for your agents
-- Resolve conversations from other tools
-
-The Chatway Live Chat node can also be used as a tool by n8n AI Agents.
+* **AI-powered customer support:** Automatically generate and send customer replies using n8n AI Agents.
+* **AI reply suggestions:** Generate draft responses as private notes for your support agents to review.
+* **CRM integrations:** Sync Chatway contacts with your CRM or Google Sheets.
+* **Slack notifications:** Alert your team when conversations start, messages arrive, or conversations are resolved.
+* **Conversation management:** Send replies, add private notes, and resolve conversations automatically.
+* **Contact management:** Create, retrieve, search, and update contacts.
+* **Custom workflows:** Connect Chatway to other apps and services using n8n.
 
 ## Installation
 
-Follow the [community nodes installation guide](https://docs.n8n.io/integrations/community-nodes/installation/). In n8n, go to **Settings → Community Nodes → Install** and enter:
+Follow the [n8n community nodes installation guide](https://docs.n8n.io/integrations/community-nodes/installation/).
 
-```
-n8n-nodes-chatway
-```
+1. Open n8n.
+2. Go to **Settings → Community Nodes → Install**.
+3. Enter the package name: `n8n-nodes-chatway`
+4. Complete the installation.
+5. Add a Chatway Live Chat or Chatway Trigger node to your workflow.
 
 ## Credentials
 
-API access and webhooks are included on every Chatway plan, including the [free plan](https://chatway.app/pricing). Only workspace owners and admins can create API keys.
+Chatway API access and webhooks are available on all plans, including Free. Only workspace owners and admins can create API keys.
 
-1. In Chatway, go to **Settings → Developer Tools → API Keys** and create a key.
-2. In n8n, create a new **Chatway API** credential and paste the key.
-3. Save. n8n tests the key right away.
+1. Log in to [Chatway](https://go.chatway.app).
+2. Go to **Settings → Developer Tools → API Keys**.
+3. Create a new API key.
+4. In n8n, create a new **Chatway API** credential.
+5. Paste your API key and save.
 
-The key is sent in the `X-API-KEY` header and never appears in node output.
+n8n automatically tests your credentials.
 
-## Operations
+The API key is sent using the `X-API-KEY` header and is not included in node output.
 
-| Resource | Operations |
-|---|---|
-| Conversation | Get Many, Resolve |
-| Message | Get Many (in a conversation), Send (reply or private note) |
-| Contact | Create, Get, Get Many (with search), Update |
-| Agent | Get, Get Many (filter by email) |
-| Widget | Get Many |
+## Supported operations
 
-Notes:
+### Conversation
 
-- **Send** always sends as an agent you pick. Choose **Reply** to message the visitor, or **Private Note** for something only your team sees.
-- **Create** contact needs a widget. Add a **First Message** to start a conversation for that contact.
-- All **Get Many** operations support **Return All** and follow pagination automatically.
-- The Chatway API doesn't have an endpoint to fetch a single conversation, so there is no "Get Conversation" operation. Use **Get Many** or the trigger's payload instead.
+| Operation | Description                      |
+| --------- | -------------------------------- |
+| Get Many  | Retrieve conversations           |
+| Resolve   | Resolve an existing conversation |
 
-## Trigger
+### Message
 
-Pick one or more events and activate the workflow. The node registers the webhook in Chatway for you and removes it when the workflow is deactivated.
+| Operation | Description                           |
+| --------- | ------------------------------------- |
+| Get Many  | Retrieve messages from a conversation |
+| Send      | Send a visitor reply or private note  |
 
-Available events:
+### Contact
 
-| Event | Fires when |
-|---|---|
-| `conversation.created` | A new conversation starts |
-| `message.received` | A visitor sends a message |
-| `message.sent` | An agent sends a message |
-| `message.updated` | A message is edited |
-| `conversation.resolved` | A conversation is resolved by an agent, automation or the system |
-| `agent.assigned` | An agent is assigned to a conversation |
-| `contact.created` | A new contact is added or identified |
-| `contact.updated` | A contact's details change |
-| `contact.form.submitted` | A visitor submits a contact or offline form |
-| `tag.assigned` / `tag.removed` | A tag is added to or removed from a conversation or contact |
-| `custom.data.assigned` / `custom.data.removed` | Custom data is added to or removed from a conversation or contact |
-| `automation.triggered` | An automation rule runs |
+| Operation | Description                |
+| --------- | -------------------------- |
+| Create    | Create a new contact       |
+| Get       | Retrieve a contact         |
+| Get Many  | List and search contacts   |
+| Update    | Update contact information |
 
-Every delivery looks like this, with the event details under `data`:
+### Agent
+
+| Operation | Description                     |
+| --------- | ------------------------------- |
+| Get       | Retrieve an agent               |
+| Get Many  | List agents and filter by email |
+
+### Widget
+
+| Operation | Description      |
+| --------- | ---------------- |
+| Get Many  | Retrieve widgets |
+
+**Additional notes:**
+
+* Sending a message requires selecting an agent.
+* Choose **Reply** to send a message to the visitor.
+* Choose **Private Note** to leave an internal message visible to your support team.
+* Creating a contact requires selecting a widget. You can optionally add a first message to start a conversation.
+* All Get Many operations support pagination and Return All.
+* To access a conversation, use Get Many or the Chatway Trigger event payload. A dedicated Get Conversation operation is not currently available.
+
+## Chatway Trigger
+
+The Chatway Trigger starts n8n workflows automatically when an event occurs in Chatway.
+
+Select one or more events and activate your workflow. The node automatically registers the webhook in Chatway and removes it when the workflow is deactivated.
+
+### Supported events
+
+| Event                    | Description                                         |
+| ------------------------ | --------------------------------------------------- |
+| `conversation.created`   | A new conversation starts                           |
+| `message.received`       | A visitor sends a message                           |
+| `message.sent`           | An agent sends a message                            |
+| `message.updated`        | A message is edited                                 |
+| `conversation.resolved`  | A conversation is resolved                          |
+| `agent.assigned`         | An agent is assigned to a conversation              |
+| `contact.created`        | A contact is created                                |
+| `contact.updated`        | Contact information changes                         |
+| `contact.form.submitted` | A visitor submits a contact or offline form         |
+| `tag.assigned`           | A tag is added to a conversation or contact         |
+| `tag.removed`            | A tag is removed from a conversation or contact     |
+| `custom.data.assigned`   | Custom data is added to a conversation or contact   |
+| `custom.data.removed`    | Custom data is removed from a conversation or contact |
+| `automation.triggered`   | An automation rule runs                             |
+
+### Example webhook payload
 
 ```json
 {
@@ -86,57 +134,132 @@ Every delivery looks like this, with the event details under `data`:
   "event": "message.received",
   "occurred_at": "2026-02-04T10:31:12Z",
   "data": {
-    "message": { "id": "...", "content": "Hello, I need help" },
-    "conversation": { "id": "...", "channel": "website", "status": "open" },
-    "visitor": { "id": "...", "name": "John Doe", "email": "john@example.com" }
+    "message": {
+      "id": "...",
+      "content": "Hello, I need help"
+    },
+    "conversation": {
+      "id": "...",
+      "channel": "website",
+      "status": "open"
+    },
+    "visitor": {
+      "id": "...",
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
   }
 }
 ```
 
-Good to know:
+### Webhook requirements
 
-- Your n8n instance must be reachable from the internet over **HTTPS**. Chatway doesn't deliver to `localhost` or plain HTTP.
-- Each delivery is signed. The trigger checks the signature and timestamp and rejects anything that doesn't match.
-- Chatway retries a delivery if n8n doesn't answer in time. The trigger ignores repeats of the same event, so a workflow runs once per event.
-- A Chatway team can have up to 10 webhooks. Each active workflow with a Chatway Trigger uses one.
+* Your n8n instance must be reachable over HTTPS on a public domain name. Chatway does not deliver webhooks to localhost, IP addresses, or plain HTTP.
+* Webhook deliveries are signed. The trigger checks the signature and timestamp and rejects anything that doesn't match.
+* If n8n doesn't respond within a few seconds, Chatway retries the delivery. The trigger ignores repeated deliveries of the same event, so each event runs the workflow once.
+* A Chatway team can have up to 10 webhooks. Each active Chatway Trigger workflow uses one.
 
-## Examples
+## Workflow examples
 
-**Reply suggestions with AI**
+### 1. Automatically reply to customers using AI
 
-Chatway Trigger (`message.received`) → AI Agent → Chatway Live Chat (Message → Send, **Private Note**)
+Use an n8n AI Agent to generate and send customer support replies through Chatway.
 
-The draft lands as a private note, so an agent can review it before replying. Use these fields from the trigger:
+**Workflow:**
 
-- Conversation ID: `{{ $json.data.conversation.id }}`
-- Visitor message: `{{ $json.data.message.content }}`
+`Chatway Trigger (message.received) → AI Agent → Chatway Live Chat (Message → Send → Reply)`
 
-**New contacts to Google Sheets**
+When a visitor sends a message, the workflow passes the message to an AI agent. The AI agent generates a response, which is sent back to the visitor through Chatway.
 
-Chatway Trigger (`contact.created`) → Google Sheets (Append Row)
+`message.received` only fires for visitor messages, so the reply sent by the workflow does not trigger it again.
 
-**Slack alert for new conversations**
+You can connect the AI agent to your own knowledge sources to provide more relevant answers. For production workflows, consider adding human approval or escalation for questions the agent can't answer.
 
-Chatway Trigger (`conversation.created`) → Slack (Send Message)
+### 2. Generate AI reply suggestions for support agents
 
+Use AI to draft replies without sending them automatically.
+
+**Workflow:**
+
+`Chatway Trigger (message.received) → AI Agent → Chatway Live Chat (Message → Send → Private Note)`
+
+The AI-generated response appears as a private note in the conversation, allowing a human agent to review it before replying.
+
+Useful expressions:
+
+* Conversation ID: `{{ $json.data.conversation.id }}`
+* Visitor message: `{{ $json.data.message.content }}`
+
+### 3. Sync new contacts with Google Sheets
+
+Automatically add new Chatway contacts to a spreadsheet.
+
+**Workflow:**
+
+`Chatway Trigger (contact.created) → Google Sheets (Append Row)`
+
+You can also connect Chatway to a CRM or other customer management tools.
+
+### 4. Send Slack notifications for new conversations
+
+Notify your team when a new conversation starts.
+
+**Workflow:**
+
+`Chatway Trigger (conversation.created) → Slack (Send Message)`
+
+Example Slack message:
+
+```text
+New chat from {{ $json.data.visitor.name }}
+Widget: {{ $json.data.conversation.widget_name }}
 ```
-New chat from {{ $json.data.visitor.name }} on {{ $json.data.conversation.widget_name }}
-```
 
-**Daily export of contacts**
+### 5. Export contacts automatically
 
-Schedule Trigger → Chatway Live Chat (Contact → Get Many, Return All) → Google Sheets
+Export Chatway contacts to Google Sheets on a schedule.
+
+**Workflow:**
+
+`Schedule Trigger → Chatway Live Chat (Contact → Get Many, Return All) → Google Sheets`
+
+### 6. Resolve conversations from other tools
+
+Automatically resolve Chatway conversations based on actions in other applications.
+
+**Workflow:**
+
+`External App Trigger → Chatway Live Chat (Conversation → Resolve)`
+
+## Use Chatway with n8n AI Agents
+
+The Chatway Live Chat node can be used as a tool by n8n AI Agents.
+
+This allows AI agents to work with Chatway using the supported operations, including retrieving conversations, managing contacts, and sending messages.
+
+Example use cases include:
+
+* AI customer support assistants
+* Automated customer follow-ups
+* Customer information retrieval
+* AI-generated support replies
+* Customer service workflow automation
+
+Chatway can serve as the customer communication channel while n8n handles AI processing and workflow automation.
 
 ## Compatibility
 
-Built with the `n8n-node` CLI using n8n Nodes API version 1. Tested with n8n 2.43.
+* Built using the n8n-node CLI
+* Uses n8n Nodes API version 1
+* Tested with n8n 2.43
 
 ## Resources
 
-- [Chatway](https://chatway.app)
-- [Chatway API documentation](https://developers.chatway.app)
-- [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-- [Changelog](CHANGELOG.md)
+* [Chatway Website](https://chatway.app)
+* [Chatway API Documentation](https://developers.chatway.app)
+* [Chatway GitHub Repository](https://github.com/Chatway-app/n8n-nodes-chatway)
+* [n8n Community Nodes Documentation](https://docs.n8n.io/integrations/community-nodes/)
+* [Changelog](CHANGELOG.md)
 
 ## License
 
