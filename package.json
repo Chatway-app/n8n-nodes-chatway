@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-chatway",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Automate Chatway Live Chat with n8n. Trigger workflows from customer events, manage conversations, send replies, and sync contacts.",
   "license": "MIT",
   "homepage": "https://chatway.app",
