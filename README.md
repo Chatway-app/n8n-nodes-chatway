@@ -30,6 +30,8 @@ The Chatway Live Chat node can also be used as a tool by **n8n AI Agents**.
 * **Contact management:** Create, retrieve, search, and update contacts.
 * **Custom workflows:** Connect Chatway to other apps and services using n8n.
 
+<img width="1400" height="716" alt="image (3)" src="https://github.com/user-attachments/assets/cf91e834-24af-4f48-b74d-00aef16606b5" />
+
 ## Installation
 
 Follow the [n8n community nodes installation guide](https://docs.n8n.io/integrations/community-nodes/installation/).
