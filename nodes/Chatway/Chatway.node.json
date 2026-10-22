@@ -1,5 +1,5 @@
 {
-	"node": "n8n-nodes-chatway",
+	"node": "n8n-nodes-chatway.chatway",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Communication", "Sales"],
